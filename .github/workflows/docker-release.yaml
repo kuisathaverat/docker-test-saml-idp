@@ -16,6 +16,11 @@ jobs:
     env:
       REGISTRY: ghcr.io
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/foresight-workflow-kit-action@v1
+        if: ${{ always() }}
+        with:
+          api_key: ${{ secrest.FORESIGHT_KEY }}
       - uses: actions/checkout@v3
       - name: version
         id: version

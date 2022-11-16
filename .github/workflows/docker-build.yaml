@@ -17,6 +17,11 @@ jobs:
       REGISTRY: ghcr.io
       VERSION: "latest"
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/foresight-workflow-kit-action@v1
+        if: ${{ always() }}
+        with:
+          api_key: ${{ secrest.FORESIGHT_KEY }}
       - uses: actions/checkout@v3
       - name: Log in to the Container registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -26,3 +31,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish
         run: make publish
+      # https://docs.runforesight.com/advanced-configuration/test-kit
+      # - name: Analyze Test and/or Coverage Results
+      #   uses: runforesight/foresight-test-kit-action@v1
+      #   if: ${{ always() }}
+      #   with:
+      #     api_key: 9d0f46f6-9bdb-426a-823e-c4c61cb61f33
+      #     test_format: <test_format_optional>
+      #     test_framework: <test_framework_optional>
+      #     test_path: <test_results_path_optional>
+      #     coverage_format: <coverage_format_optional>
+      #     coverage_path: <coverage_results_path_optional>
