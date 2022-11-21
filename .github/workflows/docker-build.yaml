@@ -21,7 +21,7 @@ jobs:
         uses: runforesight/foresight-workflow-kit-action@v1
         if: ${{ always() }}
         with:
-          api_key: ${{ secrest.FORESIGHT_KEY }}
+          api_key: ${{ secret.FORESIGHT_KEY }}
       - uses: actions/checkout@v3
       - name: Log in to the Container registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
